@@ -1,0 +1,20 @@
+GET information from Sensor Detail in DB
+GET https://mysensor-test.herokuapp.com/sensor
+
+GET information Sensor Total Measurement Value in DB
+GET https://mysensor-test.herokuapp.com/data
+
+POST information Sensor Detail to DB
+POST https://mysensor-test.herokuapp.com/sensor
+
+{
+    "sensor_id": xxx,
+    "sensor name": "xxx"
+}
+
+POST information Sensor Measurement Value to DB
+POST POST https://mysensor-test.herokuapp.com/data
+{
+    "sensor_id": xxx,
+    "measurement_value": "xxx"
+}
