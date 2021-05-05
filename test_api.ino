@@ -37,7 +37,7 @@ void setup() {
 }
 void loop() {
    
-  String url = "https://mysensor-test.herokuapp.com/data";
+  String url_post = "https://mysensor-test.herokuapp.com/data";
   Serial.println();
   Serial.println("Get content from " + url);
 
@@ -45,12 +45,15 @@ void loop() {
   // Read temperature as Celsius (the default)
   int t = dht.readTemperature();
   
+  
   HTTPClient http;
+  
+  // Send data to database
   http.begin(url);
+  Serial.println(url); // show url  
   http.addHeader("Content-Type", "application/json");
-
   String test = "{\"sensor_id\":\"1\",\"measurement_value\":"+String(t)+"}"; // Temperature
-  Serial.println(test);
+  Serial.println(test); // show url
   int httpCode = http.POST( test);
   
 //  int httpCode = http.GET();
@@ -62,12 +65,12 @@ void loop() {
   } else {
     Serial.println("Fail. error code " + String(httpCode));
   }
-  Serial.println("END");
+  Serial.println("END POST");
   
-
+  // Send data to database
   http.begin(url);
+  Serial.println(url); // show url  
   http.addHeader("Content-Type", "application/json");
-
   String test = "{\"sensor_id\":\"2\",\"measurement_value\":"+String(f)+"}"; // Huminity
   Serial.println(test);
   int httpCode = http.POST( test);
@@ -81,6 +84,21 @@ void loop() {
   } else {
     Serial.println("Fail. error code " + String(httpCode));
   }
-  Serial.println("END");
+  Serial.println("END POST");
+  
+  // Read to check data after send to database
+  String url_get = https://mysensor-test.herokuapp.com/data
+  http.begin(url_get);
+  Serial.println(url_get);
+  int httpCode = http.GET();
+  if (httpCode == 200) {
+    String content = http.getString();
+    Serial.println("Content ---------");
+    Serial.println(content);
+    Serial.println("-----------------");
+  } else {
+    Serial.println("Fail. error code " + String(httpCode));
+  }
+  Serial.println("END GET");
   delay(3000); 
   }
