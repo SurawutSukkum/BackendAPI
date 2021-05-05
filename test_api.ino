@@ -18,8 +18,9 @@ void setup() {
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(WIFI_STA_NAME);
+WiFi.disconnect(true);
+WiFi.mode(WIFI_STA);
 
-  WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_STA_NAME, WIFI_STA_PASS);
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -37,9 +38,9 @@ void setup() {
 }
 void loop() {
    
-  String url_post = "https://mysensor-test.herokuapp.com/data";
+String url_post = "https://mysensor-test.herokuapp.com/data";
   Serial.println();
-  Serial.println("Get content from " + url);
+  Serial.println("Get content from " + url_post);
 
   int h = dht.readHumidity();
   // Read temperature as Celsius (the default)
@@ -49,8 +50,8 @@ void loop() {
   HTTPClient http;
   
   // Send data to database
-  http.begin(url);
-  Serial.println(url); // show url  
+  http.begin(url_post);
+  Serial.println(url_post); // show url  
   http.addHeader("Content-Type", "application/json");
   String test = "{\"sensor_id\":\"1\",\"measurement_value\":"+String(t)+"}"; // Temperature
   Serial.println(test); // show url
@@ -68,12 +69,12 @@ void loop() {
   Serial.println("END POST");
   
   // Send data to database
-  http.begin(url);
-  Serial.println(url); // show url  
+  http.begin(url_post);
+  Serial.println(url_post); // show url  
   http.addHeader("Content-Type", "application/json");
-  String test = "{\"sensor_id\":\"2\",\"measurement_value\":"+String(f)+"}"; // Huminity
+   test = "{\"sensor_id\":\"2\",\"measurement_value\":"+String(h)+"}"; // Huminity
   Serial.println(test);
-  int httpCode = http.POST( test);
+  httpCode = http.POST( test);
   
 //  int httpCode = http.GET();
   if (httpCode == 200) {
@@ -87,10 +88,10 @@ void loop() {
   Serial.println("END POST");
   
   // Read to check data after send to database
-  String url_get = https://mysensor-test.herokuapp.com/data
+  String url_get = "https://mysensor-test.herokuapp.com/data";
   http.begin(url_get);
   Serial.println(url_get);
-  int httpCode = http.GET();
+  httpCode = http.GET();
   if (httpCode == 200) {
     String content = http.getString();
     Serial.println("Content ---------");
