@@ -64,7 +64,7 @@ void loop() {
   }
   Serial.println("END");
   
-    HTTPClient http;
+
   http.begin(url);
   http.addHeader("Content-Type", "application/json");
 
