@@ -49,7 +49,26 @@ void loop() {
   http.begin(url);
   http.addHeader("Content-Type", "application/json");
 
-  String test = "{\"sensor_id\":\"555\",\"measurement_value\":"+String(t)+"}";
+  String test = "{\"sensor_id\":\"1\",\"measurement_value\":"+String(t)+"}"; // Temperature
+  Serial.println(test);
+  int httpCode = http.POST( test);
+  
+//  int httpCode = http.GET();
+  if (httpCode == 200) {
+    String content = http.getString();
+    Serial.println("Content ---------");
+    Serial.println(content);
+    Serial.println("-----------------");
+  } else {
+    Serial.println("Fail. error code " + String(httpCode));
+  }
+  Serial.println("END");
+  
+    HTTPClient http;
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+
+  String test = "{\"sensor_id\":\"2\",\"measurement_value\":"+String(f)+"}"; // Huminity
   Serial.println(test);
   int httpCode = http.POST( test);
   
